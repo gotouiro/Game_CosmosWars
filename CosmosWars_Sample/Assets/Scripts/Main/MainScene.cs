@@ -4,7 +4,7 @@ public class MainScene : TitleScene
 {
     void Start()
     {
-        
+        Init();
     }
 
     void Update()
@@ -18,6 +18,14 @@ public class MainScene : TitleScene
 
 
     //---private---------------------------------------------------------------
+    /// <summary>
+    /// 初期化
+    /// </summary>
+    private void Init()
+    {
+
+    }
+
     /// <summary>
     /// コントローラー
     /// </summary>
