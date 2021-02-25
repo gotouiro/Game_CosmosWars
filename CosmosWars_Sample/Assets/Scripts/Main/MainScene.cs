@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MainScene : TitleScene
+public class MainScene : GameSystem
 {
     void Start()
     {
@@ -10,7 +10,6 @@ public class MainScene : TitleScene
     void Update()
     {
         MainSystem();
-        PlayerController();
         UISystem();
     }
 
@@ -18,23 +17,14 @@ public class MainScene : TitleScene
 
 
     //---private---------------------------------------------------------------
-    /// <summary>
-    /// 初期化
-    /// </summary>
-    private void Init()
-    {
-
-    }
-
-    /// <summary>
-    /// コントローラー
-    /// </summary>
-    private void PlayerController()
-    {
-
-    }
+    
 
     //---protected-------------------------------------------------------------
+    protected override void Init()
+    {
+        
+    }
+
     protected override void MainSystem()
     {
 

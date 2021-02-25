@@ -5,7 +5,7 @@ public class TitleScene : GameSystem
 {
     void Start()
     {
-        
+        Init();
     }
 
     void Update()
@@ -42,6 +42,11 @@ public class TitleScene : GameSystem
     }
 
     //---protected-------------------------------------------------------------
+    protected override void Init()
+    {
+        
+    }
+
     protected override void MainSystem()
     {
         

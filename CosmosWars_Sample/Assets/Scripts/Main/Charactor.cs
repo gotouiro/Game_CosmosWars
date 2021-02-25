@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Charactor : MonoBehaviour
+public abstract class Charactor : MonoBehaviour
 {
     //---public----------------------------------------------------------------
 
@@ -9,5 +9,12 @@ public class Charactor : MonoBehaviour
 
 
     //---protected-------------------------------------------------------------
+    [SerializeField] protected GameObject bullet; //弾
 
+    protected CharactorStatus charactorStatus; //ステータス
+
+    /// <summary>
+    /// 初期化
+    /// </summary>
+    protected abstract void Init();
 }

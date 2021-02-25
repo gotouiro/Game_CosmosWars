@@ -17,11 +17,35 @@ public enum Attribute
 /// </summary>
 public struct CharactorStatus
 {
-    public Attribute attribute; //属性
-    public int hp;              //体力
-    public int at_min;          //最小攻撃力
-    public int at_max;          //最大攻撃力
-    public int at_speed;        //攻撃速度[回/s]
-    public int df;              //防御力
-    public int speed;           //移動速度[px/s]
+    public Attribute attribute_main; //主属性
+    public Attribute attribute_sub;  //副属性
+    public int hp;                   //体力
+    public int at_min;               //最小攻撃力
+    public int at_max;               //最大攻撃力
+    public float at_speed;           //攻撃速度[回/s]
+    public int df;                   //防御力
+    public float speed;              //移動速度[px/s]
+
+    /// <summary>
+    /// 初期化                          <br></br>
+    /// int h           : 体力          <br></br>
+    /// int a_min       : 最小攻撃力    <br></br>
+    /// int a_max       : 最大攻撃力    <br></br>
+    /// float a_sp      : 攻撃速度[回/s]<br></br>
+    /// int d           : 防御力        <br></br>
+    /// float sp        : 移動速度[px/s]<br></br>
+    /// Attribute att_m : 主属性        <br></br>
+    /// Attribute att_s : 副属性        <br></br>
+    /// </summary>
+    public CharactorStatus(int h, int a_min, int a_max, float a_sp, int d, float sp, Attribute att_m, Attribute att_s = Attribute.None)
+    {
+        hp = h;
+        at_min = a_min;
+        at_max = a_max;
+        at_speed = a_sp;
+        df = d;
+        speed = sp;
+        attribute_main = att_m;
+        attribute_sub = att_s;
+    }
 }
