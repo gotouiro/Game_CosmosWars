@@ -10,18 +10,19 @@ public class Player : Charactor
 
     void Update()
     {
-        PlayerController();
+        if(gameObject)
+        {
+            PlayerController();
+            DeadProcessing();
+        }
     }
-
     //---public----------------------------------------------------------------
 
 
     //---private---------------------------------------------------------------
     private Vector2 length = new Vector2(32, 32); //オブジェクトの縦横の長さ(width, height)
 
-    /// <summary>
-    /// キャラクターの弾クラス設定
-    /// </summary>
+    #region プレイヤーの弾クラス設定...
     private class Bullet : MonoBehaviour
     {
         void Start()
@@ -35,7 +36,27 @@ public class Player : Charactor
             DeleteProcessing();
         }
 
+        void OnCollisionEnter2D(Collision2D collision)
+        {
+            //敵もしくは敵の弾に当たった場合オブジェクト削除
+            //敵に当たった場合ダメージを与える
+            if (collision.gameObject.tag == "Enemy")
+            {
+                if (collision.gameObject.GetComponent<Enemy>()) player.Damage(collision.gameObject.GetComponent<Enemy>());
+                Destroy(gameObject);
+            }
+        }
+
         //---public----------------------------------------------------------------
+        /// <summary>
+        /// プレイヤー
+        /// </summary>
+        public Player _player
+        {
+            get { return player; }
+            set { player = value; }
+        }
+
         /// <summary>
         /// 弾の移動速度[px/s]
         /// </summary>
@@ -46,7 +67,8 @@ public class Player : Charactor
         }
 
         //---private---------------------------------------------------------------
-        private float speed; //弾の移動速度[px/s]
+        private Player player; //プレイヤー
+        private float speed;   //弾の移動速度[px/s]
 
         /// <summary>
         /// 初期化
@@ -75,20 +97,7 @@ public class Player : Charactor
         //---protected-------------------------------------------------------------
 
     }
-
-    /// <summary>
-    /// 攻撃
-    /// </summary>
-    private IEnumerator Attack()
-    {
-        while(true)
-        {
-            GameObject bul = Instantiate(bullet, transform.position + new Vector3(0, length.y / 2, 0), new Quaternion());
-            bul.AddComponent<Bullet>();
-            bul.GetComponent<Bullet>()._speed = charactorStatus.speed * 2;
-            yield return new WaitForSeconds(1 / charactorStatus.at_speed);
-        }
-    }
+    #endregion
 
     /// <summary>
     /// コントローラー
@@ -119,14 +128,36 @@ public class Player : Charactor
         //【Space】攻撃
         if (Input.GetKeyDown(KeyCode.Space)) StartCoroutine("Attack");
         if (Input.GetKeyUp(KeyCode.Space)) StopCoroutine("Attack");
+
+        //【Esc】アプリケーション終了
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+            #elif UNITY_STANDALONE
+                UnityEngine.Application.Quit();
+            #endif
+        }
     }
 
     //---protected-------------------------------------------------------------
     protected override void Init()
     {
-        charactorStatus = new CharactorStatus(30000, 1000, 5000, 2, 600, 800, Attribute.Fire, Attribute.Water);
+        charactorStatus = new CharactorStatus(30000, 1000, 5000, 5, 600, 800, Attribute.Fire, Attribute.Water);
         attribute = new Attribute[2];
         attribute[0] = charactorStatus.attribute_main;
         attribute[1] = charactorStatus.attribute_sub;
+    }
+
+    protected override IEnumerator Attack()
+    {
+        while (true)
+        {
+            GameObject bul = Instantiate(bullet, transform.position + new Vector3(0, length.y / 2, 0), new Quaternion());
+            bul.AddComponent<Bullet>();
+            bul.GetComponent<Bullet>()._speed = charactorStatus.speed * 2;
+            bul.GetComponent<Bullet>()._player = gameObject.GetComponent<Player>();
+            yield return new WaitForSeconds(1 / charactorStatus.at_speed);
+        }
     }
 }

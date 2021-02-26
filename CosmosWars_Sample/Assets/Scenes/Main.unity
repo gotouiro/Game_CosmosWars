@@ -279,11 +279,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e809c4bfe12f7439ae1c5624aba080, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemySpawnTime: 0.5
   ui_HPBar: {fileID: 1540644076}
   ui_HPBar_Value: {fileID: 215286923}
   ui_Attribute_Current: {fileID: 420878060}
   ui_Attribute_Other: {fileID: 369726010}
   player: {fileID: 1361880481}
+  clone_enemy: {fileID: 351122459109349793, guid: 11f8e8adf4bf8e6478f5006e0ca66cbb,
+    type: 3}
 --- !u!1 &369726010
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,7 +688,7 @@ GameObject:
   - component: {fileID: 1361880486}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -790,19 +793,19 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361880481}
-  m_BodyType: 2
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_AngularDrag: 0
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!114 &1361880486
 MonoBehaviour:
   m_ObjectHideFlags: 0
