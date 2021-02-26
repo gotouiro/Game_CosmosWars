@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class Player : Charactor
@@ -54,7 +53,7 @@ public class Player : Charactor
         /// </summary>
         private void Init()
         {
-
+            
         }
 
         /// <summary>
@@ -77,6 +76,9 @@ public class Player : Charactor
 
     }
 
+    /// <summary>
+    /// 攻撃
+    /// </summary>
     private IEnumerator Attack()
     {
         while(true)
@@ -93,11 +95,26 @@ public class Player : Charactor
     /// </summary>
     private void PlayerController()
     {
-        //【WASD】移動
+        //【W/A/S/D】移動
         if (transform.position.y <  540 - length.y && Input.GetKey(KeyCode.W)) transform.position += new Vector3( 0,  1, 0) * charactorStatus.speed * Time.deltaTime;
         if (transform.position.y > -540 + length.y && Input.GetKey(KeyCode.S)) transform.position += new Vector3( 0, -1, 0) * charactorStatus.speed * Time.deltaTime;
         if (transform.position.x <  960 - length.x && Input.GetKey(KeyCode.D)) transform.position += new Vector3( 1,  0, 0) * charactorStatus.speed * Time.deltaTime;
         if (transform.position.x > -960 + length.x && Input.GetKey(KeyCode.A)) transform.position += new Vector3(-1,  0, 0) * charactorStatus.speed * Time.deltaTime;
+
+        //【←/→】属性切替
+        if(Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (attribute[0] == charactorStatus.attribute_main)
+            {
+                attribute[0] = charactorStatus.attribute_sub;
+                attribute[1] = charactorStatus.attribute_main;
+            }
+            else
+            {
+                attribute[0] = charactorStatus.attribute_main;
+                attribute[1] = charactorStatus.attribute_sub;
+            }
+        }
 
         //【Space】攻撃
         if (Input.GetKeyDown(KeyCode.Space)) StartCoroutine("Attack");
@@ -108,5 +125,8 @@ public class Player : Charactor
     protected override void Init()
     {
         charactorStatus = new CharactorStatus(30000, 1000, 5000, 2, 600, 800, Attribute.Fire, Attribute.Water);
+        attribute = new Attribute[2];
+        attribute[0] = charactorStatus.attribute_main;
+        attribute[1] = charactorStatus.attribute_sub;
     }
 }

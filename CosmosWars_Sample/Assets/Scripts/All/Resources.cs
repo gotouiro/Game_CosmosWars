@@ -19,7 +19,8 @@ public struct CharactorStatus
 {
     public Attribute attribute_main; //主属性
     public Attribute attribute_sub;  //副属性
-    public int hp;                   //体力
+    public int hp_max;               //最大体力
+    public int hp_remaining;         //残り体力
     public int at_min;               //最小攻撃力
     public int at_max;               //最大攻撃力
     public float at_speed;           //攻撃速度[回/s]
@@ -28,7 +29,7 @@ public struct CharactorStatus
 
     /// <summary>
     /// 初期化                          <br></br>
-    /// int h           : 体力          <br></br>
+    /// int h           : 最大体力      <br></br>
     /// int a_min       : 最小攻撃力    <br></br>
     /// int a_max       : 最大攻撃力    <br></br>
     /// float a_sp      : 攻撃速度[回/s]<br></br>
@@ -39,7 +40,8 @@ public struct CharactorStatus
     /// </summary>
     public CharactorStatus(int h, int a_min, int a_max, float a_sp, int d, float sp, Attribute att_m, Attribute att_s = Attribute.None)
     {
-        hp = h;
+        hp_max = h;
+        hp_remaining = hp_max;
         at_min = a_min;
         at_max = a_max;
         at_speed = a_sp;
